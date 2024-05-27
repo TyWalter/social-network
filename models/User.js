@@ -1,5 +1,7 @@
+// Requiring in mongoose
 const {Schema, model} = require("mongoose");
 
+// User model template
 const userSchema = new Schema(
   {
     username: {
@@ -37,10 +39,12 @@ const userSchema = new Schema(
   }
 );
 
+// User virtual friend count 
 userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
 });
 
+// Creation of model from schema
 const User = model("user", userSchema);
 
 module.exports = User

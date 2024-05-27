@@ -1,6 +1,8 @@
+// Requiring in mongoose
 const {Schema, model} = require("mongoose");
 const reactionSchema = require("./Reaction");
 
+// Thought model template
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -23,9 +25,15 @@ const thoughtSchema = new Schema(
       required: true
     },
     reactions: [reactionSchema]
+  },
+  {
+    toJSON: {
+      getters: true
+    }
   }
 );
 
+// Creation of model from schema
 const Thought = model('thought', thoughtSchema)
 
 module.exports = Thought;

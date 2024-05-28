@@ -31,8 +31,8 @@ module.exports = {
     try {
       const thought = await Thought.create(req.body);
       const user = await User.findOneAndUpdate(
-        {_id: req.params.userId},
-        {$addToSet: {thoughts: req.params.thoughtId}},
+        {_id: req.body.userId},
+        {$addToSet: {thoughts: thought._id}},
         {runValidators: true, new: true}
       );
       if(!user) {
@@ -79,7 +79,7 @@ module.exports = {
     try {
       const reaction = await Thought.findOneAndUpdate(
         {_id: req.params.thoughtId},
-        {$addToSet: {reactions: req.params.reactionId}},
+        {$addToSet: {reactions: req.body}},
         {runValidators: true, new: true}
       )
       if(!reaction) {
@@ -96,7 +96,7 @@ module.exports = {
     try {
       const reaction = await Thought.findOneAndUpdate(
         {_id: req.params.thoughtId},
-        {$pull: {reactions: req.params.reactionId}},
+        {$pull: {reactions: {reactionId: req.params.reactionId}}},
         {runValidators: true, new: true}
       )
       if(!reaction) {
